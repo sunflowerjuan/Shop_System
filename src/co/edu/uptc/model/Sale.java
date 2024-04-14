@@ -1,24 +1,44 @@
 package co.edu.uptc.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sale {
     private String id;
-    private List<Product> products;
+    HashMap<Product, Integer> products = new HashMap<>();
     private double price;
     private LocalDate saleDate;
 
-    public Sale(String id, List<Product> products, double price, LocalDate saleDate) {
+    public Sale(String id, HashMap<Product, Integer> hashMap, double price, LocalDate saleDate) {
         this.id = id;
-        this.products = products;
+        this.products = hashMap;
         this.price = price;
         this.saleDate = saleDate;
     }
 
     public Sale() {
-        products = new ArrayList<>();
+    }
+
+    public void addProduct(Product product, int amount) {
+        products.put(product, amount);
+    }
+
+    public void deleteProduct(String id) throws Exception {
+        Product product = searchProduct(id);
+        if (product == null) {
+            throw new Exception("Producto no encontrado");
+        }
+        products.remove(product);
+    }
+
+    public Product searchProduct(String id) {
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            if (entry.getKey().getReference().equals(id)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     public String getId() {
@@ -29,12 +49,12 @@ public class Sale {
         this.id = id;
     }
 
-    public List<Product> getProducts() {
+    public HashMap<Product, Integer> getHashMap() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setHashMap(HashMap<Product, Integer> hashMap) {
+        this.products = hashMap;
     }
 
     public double getPrice() {
@@ -52,4 +72,5 @@ public class Sale {
     public void setSaleDate(LocalDate saleDate) {
         this.saleDate = saleDate;
     }
+
 }
