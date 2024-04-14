@@ -6,6 +6,7 @@ import java.util.List;
 import co.edu.uptc.model.Product;
 import co.edu.uptc.model.SystemManager;
 import co.edu.uptc.persist.FileManager;
+import co.edu.uptc.view.PrincipalPanel;
 
 public class Control {
     private SystemManager system;
@@ -32,5 +33,9 @@ public class Control {
             listProducts.add(product);
         }
         system.setProducts(listProducts);
+    }
+
+    public static void main(String[] args) {
+        PrincipalPanel xd = new PrincipalPanel();
     }
 }

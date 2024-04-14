@@ -2,6 +2,7 @@ package co.edu.uptc.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class SellPanel extends JPanel {
     private JTextField totalField;
@@ -15,6 +16,7 @@ public class SellPanel extends JPanel {
         add(totalField);
 
         sellButton = new JButton("Vender");
+        sellButton.setPreferredSize(new Dimension(100, 30));
         add(sellButton);
     }
 }
