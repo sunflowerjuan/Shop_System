@@ -14,6 +14,16 @@ public class SystemManager {
     public SystemManager() {
     }
 
+    public Product searchProduct(String id) {
+        Product theProduct = null;
+        for (Product product : products) {
+            if(product.getReference().equals(id)) {
+                theProduct = product;
+            }
+        }
+        return theProduct;
+    }
+
     public void sellProducts(Sale sale) {
         sales.add(sale);
     }

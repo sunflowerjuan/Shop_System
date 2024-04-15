@@ -2,6 +2,7 @@ package co.edu.uptc.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class PrincipalPanel extends JFrame {
     private FormPanel formPanel;
@@ -9,14 +10,14 @@ public class PrincipalPanel extends JFrame {
     private SellPanel sellPanel;
     private HeaderPanel headerPanel;
 
-    public PrincipalPanel() {
+    public PrincipalPanel(ActionListener actionListener) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        load();
+        load(actionListener);
         pack();
         setVisible(true);
     }
 
-    public void load() {
+    public void load(ActionListener actionListener) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -30,7 +31,7 @@ public class PrincipalPanel extends JFrame {
         gbc.weighty = 0.1;
         add(headerPanel, gbc);
 
-        formPanel = new FormPanel();
+        formPanel = new FormPanel(actionListener);
         gbc.gridy = 1;
         gbc.weighty = 0.3;
         add(formPanel, gbc);
@@ -44,5 +45,21 @@ public class PrincipalPanel extends JFrame {
         gbc.gridy = 3;
         gbc.weighty = 0.1;
         add(sellPanel, gbc);
+    }
+
+    public void setDescription(String description){
+        formPanel.setDescriptionField(description);
+    }
+
+    public void setPrice(String price){
+        formPanel.setPriceField(price);
+    }
+
+    public String getIdProduct(){
+        return formPanel.getIdProductField().getText();
+    }
+
+    public int getAmount(){
+        return Integer.parseInt(formPanel.getIdProductField().getText());
     }
 }

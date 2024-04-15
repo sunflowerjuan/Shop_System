@@ -32,6 +32,10 @@ public class TablePanel extends JPanel{
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    public void addRRow(Object[] row) {
+        modelTable.addRow(row);
+    }
+
     public void delete() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
