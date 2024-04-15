@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import co.edu.uptc.model.Product;
 import co.edu.uptc.model.Sale;
@@ -43,7 +44,9 @@ public class Control implements ActionListener {
 
     public void uploadProducts() {
         List<Product> listProducts = system.getProducts();
+        fileManager.clear();
         for (Product product : listProducts) {
+
             fileManager.writeFile(product.makeToString());
         }
     }
@@ -53,7 +56,10 @@ public class Control implements ActionListener {
             Product product = system.searchProduct(principalPanel.getIdProduct());
             principalPanel.setDescription(product.getName());
             principalPanel.setPrice(String.valueOf(product.getPrice()));
-            principalPanel.setSaleId(system.generateIds());
+            if (principalPanel.getSaleId().equals("")) {
+                principalPanel.setSaleId(system.generateIds());
+            }
+
         } catch (Exception e) {
             principalPanel.showErrorMessage(e.getMessage());
             principalPanel.setIdProduct("");
@@ -71,6 +77,10 @@ public class Control implements ActionListener {
             Object[] row = new Object[5];
             row[0] = product.getReference();
             row[1] = product.getName();
+            if (principalPanel.getAmount() <= 0) {
+                principalPanel.setAmount("");
+                throw new Exception("CANTIDAD INVALIDA");
+            }
             row[2] = principalPanel.getAmount();
             row[3] = product.getPrice();
             double price = principalPanel.getAmount() * product.getPrice();
@@ -113,11 +123,100 @@ public class Control implements ActionListener {
             case "sell":
                 sell();
                 break;
+            case "delete":
+                delete();
+                break;
+            case "closeBill":
+                closeBill();
+                break;
+            case "exit":
+                closeAll();
+                break;
+            case "closeAll":
+                principalPanel.closeAll();
+                principalPanel.getClosePanel().setVisible(false);
+                uploadProducts();
+                break;
+
         }
     }
 
-    private void sell() {
+    private void closeAll() {
+        principalPanel.close(this);
+        double plus = 0;
+        for (Sale sale : system.getSales()) {
+            Object[] row = new Object[2];
+            row[0] = sale.getId();
+            row[1] = sale.getPrice();
+            plus += sale.getPrice();
+            principalPanel.getClosePanel().addRRow(row);
+        }
+        principalPanel.getClosePanel().setpayTextField(plus + "");
+        principalPanel.getClosePanel().setVisible(true);
+    }
 
+    private void delete() {
+        Object[] data = principalPanel.tableDelete();
+        if (data[0] == null) {
+            try {
+                throw new Exception("SELECCIONE EL OBJETO PRIMERO");
+            } catch (Exception e) {
+                principalPanel.showErrorMessage(e.getMessage());
+            }
+        } else {
+            Product product = new Product();
+            product.setReference((String) data[0]);
+            product.setName((String) data[1]);
+            product.setStock((Integer) data[2]);
+            int pos = system.getSale(principalPanel.getSaleId());
+            try {
+                system.getSales().get(pos).deleteProduct(product.getReference());
+                pos = system.getProduct(product.getReference());
+                int stok = system.getProducts().get(pos).getStock() + product.getStock();
+                system.getProducts().get(pos).setStock(stok);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            refreshInfo();
+        }
+
+    }
+
+    private void sell() {
+        int index = system.getSale(principalPanel.getSaleId());
+        if (index == -1) {
+            try {
+                throw new Exception("AGREGUE PRODUCTOS AL CARRITO");
+            } catch (Exception e) {
+                principalPanel.showErrorMessage(e.getMessage());
+            }
+        } else {
+            Sale sale = system.getSales().get(index);
+            principalPanel.sell(this);
+            for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
+                Object[] row = new Object[5];
+                row[0] = entry.getKey().getReference();
+                row[1] = entry.getKey().getName();
+                row[2] = entry.getValue();
+                row[3] = entry.getKey().getPrice();
+                double price = principalPanel.getAmount() * entry.getKey().getPrice();
+                row[4] = price;
+                principalPanel.getBillPanel().addRRow(row);
+            }
+            principalPanel.getBillPanel().setpayTextField(sale.getPrice() + "");
+            principalPanel.getBillPanel().setVisible(true);
+        }
+
+    }
+
+    public void closeBill() {
+        principalPanel.getBillPanel().setVisible(false);
+        principalPanel.setSaleId("");
+        principalPanel.setIdProduct("");
+        principalPanel.setDescription("");
+        principalPanel.setPrice("");
+        principalPanel.setAmount("");
+        principalPanel.clean();
     }
 
 }

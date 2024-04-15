@@ -8,13 +8,11 @@ public class Sale {
     private String id;
     HashMap<Product, Integer> products = new HashMap<>();
     private double price;
-    private LocalDate saleDate;
 
-    public Sale(String id, HashMap<Product, Integer> hashMap, double price, LocalDate saleDate) {
+    public Sale(String id, HashMap<Product, Integer> hashMap, double price) {
         this.id = id;
         this.products = hashMap;
         this.price = price;
-        this.saleDate = saleDate;
     }
 
     public Sale() {
@@ -65,24 +63,6 @@ public class Sale {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public LocalDate getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(LocalDate saleDate) {
-        this.saleDate = saleDate;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", products='" + getProducts() + "'" +
-                ", price='" + getPrice() + "'" +
-                ", saleDate='" + getSaleDate() + "'" +
-                "}";
     }
 
 }

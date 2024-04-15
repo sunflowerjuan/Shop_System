@@ -29,7 +29,7 @@ public class FileManager {
 	public void openFile(char modo) {
 		try {
 			if (modo == 'w') {
-				fileWriter = new FileWriter(file, false);
+				fileWriter = new FileWriter(file, true);
 				bufferedWriter = new BufferedWriter(fileWriter);
 			} else {
 				fileReader = new FileReader(file);
@@ -83,6 +83,18 @@ public class FileManager {
 				bufferedWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void clear() {
+		try {
+			fileWriter = new FileWriter(file, false);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			closeFile();
 		}
 	}
 

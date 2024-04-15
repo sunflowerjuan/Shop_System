@@ -9,11 +9,13 @@ public class PrincipalPanel extends JFrame {
     private TablePanel tablePanel;
     private SellPanel sellPanel;
     private HeaderPanel headerPanel;
+    private BillPanel billPanel;
+    private ClosePanel closePanel;
 
     public PrincipalPanel(ActionListener actionListener) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         load(actionListener);
-        setSize(800, 600);
+        pack();
         setVisible(true);
     }
 
@@ -36,7 +38,7 @@ public class PrincipalPanel extends JFrame {
         gbc.weighty = 0.3;
         add(formPanel, gbc);
 
-        tablePanel = new TablePanel();
+        tablePanel = new TablePanel(actionListener);
         gbc.gridy = 2;
         gbc.weighty = 0.5;
         add(tablePanel, gbc);
@@ -45,6 +47,7 @@ public class PrincipalPanel extends JFrame {
         gbc.gridy = 3;
         gbc.weighty = 0.1;
         add(sellPanel, gbc);
+
     }
 
     public void addRow(Object[] row) {
@@ -93,5 +96,43 @@ public class PrincipalPanel extends JFrame {
 
     public void setTotalField(String text) {
         sellPanel.setTotalField(text);
+    }
+
+    public Object[] tableDelete() {
+        return tablePanel.delete();
+    }
+
+    public void clean() {
+        tablePanel.clean();
+        tablePanel.repaint();
+        tablePanel.revalidate();
+    }
+
+    public void sell(ActionListener actionListener) {
+        billPanel = new BillPanel(actionListener);
+    }
+
+    public void close(ActionListener actionListener) {
+        closePanel = new ClosePanel(actionListener);
+    }
+
+    public BillPanel getBillPanel() {
+        return billPanel;
+    }
+
+    public void setBillPanel(BillPanel billPanel) {
+        this.billPanel = billPanel;
+    }
+
+    public ClosePanel getClosePanel() {
+        return closePanel;
+    }
+
+    public void setClosePanel(ClosePanel closePanel) {
+        this.closePanel = closePanel;
+    }
+
+    public void closeAll() {
+        dispose();
     }
 }
