@@ -29,7 +29,7 @@ public class FileManager {
 	public void openFile(char modo) {
 		try {
 			if (modo == 'w') {
-				fileWriter = new FileWriter(file, true);
+				fileWriter = new FileWriter(file, false);
 				bufferedWriter = new BufferedWriter(fileWriter);
 			} else {
 				fileReader = new FileReader(file);

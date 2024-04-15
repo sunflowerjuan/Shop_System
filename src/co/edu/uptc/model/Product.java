@@ -16,6 +16,16 @@ public class Product {
     public Product() {
     }
 
+    public void verifyStock(int amount) throws Exception {
+        if (amount > stock) {
+            throw new Exception("Stock Insuficiente. Cantidad Actual :" + stock);
+        }
+    }
+
+    public String makeToString() {
+        return reference + "," + name + "," + stock + "," + price;
+    }
+
     public String getReference() {
         return reference;
     }

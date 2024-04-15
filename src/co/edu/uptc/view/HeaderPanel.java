@@ -31,7 +31,7 @@ public class HeaderPanel extends JPanel {
         exitButton = new JButton("Cerrar Turno");
         exitButton.setActionCommand("exit");
         exitButton.addActionListener(actionListener);
-        exitButton.setPreferredSize(new Dimension(60, 30));
+        exitButton.setPreferredSize(new Dimension(150, 30));
         add(exitButton, gbc);
     }
 }

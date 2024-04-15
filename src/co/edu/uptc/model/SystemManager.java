@@ -16,14 +16,24 @@ public class SystemManager {
         sales = new ArrayList<>();
     }
 
-    public Product searchProduct(String id) {
-        Product theProduct = null;
+    public Product searchProduct(String id) throws Exception {
         for (Product product : products) {
             if (product.getReference().equals(id)) {
-                theProduct = product;
+                return product;
             }
         }
-        return theProduct;
+        throw new Exception("NO ENCONTRADO");
+    }
+
+    public int getProduct(String id) {
+        int index = 0;
+        for (Product product : products) {
+            if (product.getReference().equals(id)) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
     }
 
     public int getSale(String id) {
@@ -35,6 +45,10 @@ public class SystemManager {
             index++;
         }
         return -1;
+    }
+
+    public String generateIds() {
+        return sales.size() + "";
     }
 
     public void sellProducts(Sale sale) {

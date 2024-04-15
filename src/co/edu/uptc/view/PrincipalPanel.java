@@ -13,7 +13,7 @@ public class PrincipalPanel extends JFrame {
     public PrincipalPanel(ActionListener actionListener) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         load(actionListener);
-        pack();
+        setSize(800, 600);
         setVisible(true);
     }
 
@@ -63,19 +63,35 @@ public class PrincipalPanel extends JFrame {
         return formPanel.getIdProductField().getText();
     }
 
+    public void setIdProduct(String text) {
+        formPanel.getIdProductField().setText(text);
+    }
+
     public int getAmount() {
         return Integer.parseInt(formPanel.getAmountField().getText());
     }
 
-    public boolean verify() {
-        return formPanel.verify();
+    public void setAmount(String text) {
+        formPanel.getAmountField().setText(text);
+    }
+
+    public void verify() throws Exception {
+        formPanel.verify();
     }
 
     public String getSaleId() {
         return formPanel.getIdSaleField().getText();
     }
 
+    public void setSaleId(String id) {
+        formPanel.getIdSaleField().setText(id);
+    }
+
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "ERROR", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void setTotalField(String text) {
+        sellPanel.setTotalField(text);
     }
 }

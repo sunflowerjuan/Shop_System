@@ -1,5 +1,5 @@
-101,Camiseta deportiva para hombre,2,25000
-102,Pantalón corto de running para mujer,5,35000
+101,Camiseta deportiva para hombre,2,100
+102,Pantalón corto de running para mujer,5,200
 103,Chaqueta deportiva para hombre,3,48000
 104,Leggings de yoga para mujer,6,28000
 105,Calcetines deportivos unisex,4,12000

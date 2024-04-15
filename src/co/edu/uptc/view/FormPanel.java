@@ -23,6 +23,7 @@ public class FormPanel extends JPanel {
         addButton = new JButton("Agregar");
 
         add(new JLabel("ID Venta:"));
+        idSaleField.setEditable(false);
         add(idSaleField);
         add(new JLabel("ID Producto:"));
         idProductField.setActionCommand("refreshInfo");
@@ -44,12 +45,14 @@ public class FormPanel extends JPanel {
         setVisible(true);
     }
 
-    public boolean verify() {
-        return idSaleField.getText().isEmpty() ||
+    public void verify() throws Exception {
+        if (idSaleField.getText().isEmpty() ||
                 idProductField.getText().isEmpty() ||
                 descriptionField.getText().isEmpty() ||
                 amountField.getText().isEmpty() ||
-                priceField.getText().isEmpty();
+                priceField.getText().isEmpty()) {
+            throw new Exception("DATOS INCOMPLETOS");
+        }
     }
 
     public JTextField getIdSaleField() {

@@ -22,4 +22,20 @@ public class SellPanel extends JPanel {
         sellButton.setPreferredSize(new Dimension(100, 30));
         add(sellButton);
     }
+
+    public String getTotalField() {
+        return totalField.getText();
+    }
+
+    public void setTotalField(String text) {
+        totalField.setText(text);
+    }
+
+    public JButton getSellButton() {
+        return sellButton;
+    }
+
+    public void setSellButton(JButton sellButton) {
+        this.sellButton = sellButton;
+    }
 }

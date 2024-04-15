@@ -18,10 +18,12 @@ public class Sale {
     }
 
     public Sale() {
+        price = 0;
     }
 
     public void addProduct(Product product, int amount) {
         products.put(product, amount);
+        price += product.getPrice() * amount;
     }
 
     public void deleteProduct(String id) throws Exception {
