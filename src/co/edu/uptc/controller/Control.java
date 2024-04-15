@@ -171,12 +171,17 @@ public class Control implements ActionListener {
             int pos = system.getSale(principalPanel.getSaleId());
             try {
                 system.getSales().get(pos).deleteProduct(product.getReference());
+                double price = (Double) data[4] - (system.getSales().get(pos).getPrice());
+                system.getSales().get(pos).setPrice(price);
+                principalPanel.setTotalField(system.getSales().get(pos).getPrice() + "");
                 pos = system.getProduct(product.getReference());
                 int stok = system.getProducts().get(pos).getStock() + product.getStock();
                 system.getProducts().get(pos).setStock(stok);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             refreshInfo();
         }
 

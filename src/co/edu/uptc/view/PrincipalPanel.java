@@ -16,6 +16,7 @@ public class PrincipalPanel extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         load(actionListener);
         pack();
+        setResizable(true);
         setVisible(true);
     }
 
