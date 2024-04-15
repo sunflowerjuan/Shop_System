@@ -21,7 +21,7 @@ public class PrincipalPanel extends JFrame {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        headerPanel = new HeaderPanel();
+        headerPanel = new HeaderPanel(actionListener);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -41,29 +41,41 @@ public class PrincipalPanel extends JFrame {
         gbc.weighty = 0.5;
         add(tablePanel, gbc);
 
-        sellPanel = new SellPanel();
+        sellPanel = new SellPanel(actionListener);
         gbc.gridy = 3;
         gbc.weighty = 0.1;
         add(sellPanel, gbc);
     }
 
-    public void addRow(Object[] row){
+    public void addRow(Object[] row) {
         tablePanel.addRRow(row);
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         formPanel.setDescriptionField(description);
     }
 
-    public void setPrice(String price){
+    public void setPrice(String price) {
         formPanel.setPriceField(price);
     }
 
-    public String getIdProduct(){
+    public String getIdProduct() {
         return formPanel.getIdProductField().getText();
     }
 
-    public int getAmount(){
+    public int getAmount() {
         return Integer.parseInt(formPanel.getAmountField().getText());
+    }
+
+    public boolean verify() {
+        return formPanel.verify();
+    }
+
+    public String getSaleId() {
+        return formPanel.getIdSaleField().getText();
+    }
+
+    public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uptc.model.Product;
+import co.edu.uptc.model.Sale;
 import co.edu.uptc.model.SystemManager;
 import co.edu.uptc.persist.FileManager;
 import co.edu.uptc.view.PrincipalPanel;
@@ -40,23 +41,43 @@ public class Control implements ActionListener {
         system.setProducts(listProducts);
     }
 
-    public void refreshInfo(){
+    public void refreshInfo() {
         Product product = system.searchProduct(principalPanel.getIdProduct());
         principalPanel.setDescription(product.getName());
         principalPanel.setPrice(String.valueOf(product.getPrice()));
     }
 
-    public void add(){
+    public void add() {
+
         Product product = system.searchProduct(principalPanel.getIdProduct());
-        //principalPanel.setDescription(product.getName());
-        //principalPanel.setPrice(String.valueOf(product.getPrice()));
-        Object[] row = new Object[5];
-        row[0] = product.getReference();
-        row[1] = product.getName();
-        row[2] = principalPanel.getAmount();
-        row[3] = product.getPrice();
-        row[4] = principalPanel.getAmount() * product.getPrice();
-        principalPanel.addRow(row);
+        if (!principalPanel.verify() && product.getStock() >= principalPanel.getAmount()) {
+
+            Object[] row = new Object[5];
+            row[0] = product.getReference();
+            row[1] = product.getName();
+            row[2] = principalPanel.getAmount();
+            row[3] = product.getPrice();
+            double price = principalPanel.getAmount() * product.getPrice();
+            row[4] = price;
+            principalPanel.addRow(row);
+            int index = system.getSale(principalPanel.getSaleId());
+            if (index == -1) {
+                Sale sale = new Sale();
+                sale.setId(principalPanel.getSaleId());
+                sale.setPrice(sale.getPrice() + price);
+                sale.addProduct(product, principalPanel.getAmount());
+                system.sellProducts(sale);
+            } else {
+                Sale sale = system.getSales().get(index);
+                sale.addProduct(product, principalPanel.getAmount());
+                system.getSales().set(index, sale);
+                System.out.println(sale.toString());
+            }
+
+        } else {
+            principalPanel.showErrorMessage("DATOS INVALIDOS");
+        }
+
     }
 
     @Override
@@ -67,12 +88,10 @@ public class Control implements ActionListener {
                 refreshInfo();
                 break;
             case "add":
-            add();
-            break;
+                add();
+
+                break;
         }
     }
 
-    public static void main(String[] args) {
-        Control xd = new Control();
-    }
 }

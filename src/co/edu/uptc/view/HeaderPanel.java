@@ -2,12 +2,13 @@ package co.edu.uptc.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class HeaderPanel extends JPanel {
     private JLabel imageShop;
     private JButton exitButton;
 
-    public HeaderPanel() {
+    public HeaderPanel(ActionListener actionListener) {
         setLayout(new GridBagLayout());
         setBackground(new Color(0, 151, 178));
 
@@ -27,7 +28,9 @@ public class HeaderPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, 0, 0, 20);
 
-        exitButton = new JButton("Salir");
+        exitButton = new JButton("Cerrar Turno");
+        exitButton.setActionCommand("exit");
+        exitButton.addActionListener(actionListener);
         exitButton.setPreferredSize(new Dimension(60, 30));
         add(exitButton, gbc);
     }

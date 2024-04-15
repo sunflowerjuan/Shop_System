@@ -13,7 +13,7 @@ public class FormPanel extends JPanel {
     private JButton addButton;
 
     public FormPanel(ActionListener actionListener) {
-        setLayout(new GridLayout(6,2));
+        setLayout(new GridLayout(6, 2));
 
         idSaleField = new JTextField();
         idProductField = new JTextField();
@@ -42,6 +42,14 @@ public class FormPanel extends JPanel {
         add(addButton);
 
         setVisible(true);
+    }
+
+    public boolean verify() {
+        return idSaleField.getText().isEmpty() ||
+                idProductField.getText().isEmpty() ||
+                descriptionField.getText().isEmpty() ||
+                amountField.getText().isEmpty() ||
+                priceField.getText().isEmpty();
     }
 
     public JTextField getIdSaleField() {
