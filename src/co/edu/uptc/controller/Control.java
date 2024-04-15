@@ -46,8 +46,17 @@ public class Control implements ActionListener {
         principalPanel.setPrice(String.valueOf(product.getPrice()));
     }
 
-    public static void main(String[] args) {
-        Control xd = new Control();
+    public void add(){
+        Product product = system.searchProduct(principalPanel.getIdProduct());
+        //principalPanel.setDescription(product.getName());
+        //principalPanel.setPrice(String.valueOf(product.getPrice()));
+        Object[] row = new Object[5];
+        row[0] = product.getReference();
+        row[1] = product.getName();
+        row[2] = principalPanel.getAmount();
+        row[3] = product.getPrice();
+        row[4] = principalPanel.getAmount() * product.getPrice();
+        principalPanel.addRow(row);
     }
 
     @Override
@@ -57,6 +66,13 @@ public class Control implements ActionListener {
             case "refreshInfo":
                 refreshInfo();
                 break;
+            case "add":
+            add();
+            break;
         }
+    }
+
+    public static void main(String[] args) {
+        Control xd = new Control();
     }
 }

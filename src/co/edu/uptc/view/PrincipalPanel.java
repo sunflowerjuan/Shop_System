@@ -47,6 +47,10 @@ public class PrincipalPanel extends JFrame {
         add(sellPanel, gbc);
     }
 
+    public void addRow(Object[] row){
+        tablePanel.addRRow(row);
+    }
+
     public void setDescription(String description){
         formPanel.setDescriptionField(description);
     }
@@ -60,6 +64,6 @@ public class PrincipalPanel extends JFrame {
     }
 
     public int getAmount(){
-        return Integer.parseInt(formPanel.getIdProductField().getText());
+        return Integer.parseInt(formPanel.getAmountField().getText());
     }
 }
