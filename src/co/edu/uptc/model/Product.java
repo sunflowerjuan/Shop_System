@@ -5,12 +5,14 @@ public class Product {
     private int stock;
     private String name;
     private double price;
+    private double salePrice;
 
-    public Product(String reference, int stock, String name, double price) {
+    public Product(String reference, int stock, String name, double price, double salePrice) {
         this.reference = reference;
         this.stock = stock;
         this.name = name;
         this.price = price;
+        this.salePrice = salePrice;
     }
 
     public Product() {
@@ -23,7 +25,7 @@ public class Product {
     }
 
     public String makeToString() {
-        return reference + "," + name + "," + stock + "," + price;
+        return reference + "," + name + "," + stock + "," + price + "," + salePrice;
     }
 
     public String getReference() {
@@ -56,6 +58,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
     }
 
 }

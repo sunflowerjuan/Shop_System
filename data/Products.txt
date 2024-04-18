@@ -1,0 +1,100 @@
+Referencia,Cantidad,Nombre,Precio de Costo en Dolares,Precio de venta en Pesos colombianos
+RFCOL1012,3,Raqueta de tenis,50,00,0.0
+RFCOL1013,10,Balón de fútbol,20,00,0.0
+RFCOL1014,10,Pelota de baloncesto,25,00,0.0
+RFCOL1015,10,Par de guantes de boxeo,30,01,0.0
+RFCOL1016,2,Red de voleibol,40,00,0.0
+RFCOL1017,30,Zapatillas de running,60,00,0.0
+RFCOL1018,2,Bicicleta de montaña,300,00,0.0
+RFCOL1019,5,Tabla de surf,200,00,0.0
+RFCOL1020,10,Raqueta de tenis de mesa,50,15,0.0
+RFCOL1021,3,Palos de golf,150,00,0.0
+RFCOL1022,50,Pelotas de golf (docena),25,00,0.0
+RFCOL1023,10,Guantes de portero de fútbol,40,00,0.0
+RFCOL1024,10,Casco de ciclismo,35,20,0.0
+RFCOL1025,10,Camiseta de fútbol,20,00,0.0
+RFCOL1026,10,Gafas de natación,15,00,0.0
+RFCOL1027,5,Patines en línea,50,00,0.0
+RFCOL1028,2,Tabla de snowboard,250,25,0.0
+RFCOL1029,4,Protecciones para patinaje,30,00,0.0
+RFCOL1030,10,Traje de neopreno Femenino-,100,00,0.0
+RFCOL1031,4,Raquetas de bádminton (par),40,00,0.0
+RFCOL1032,50,Pelota de bádminton (paquete de 6),10,00,0.0
+RFCOL1033,2,Bastones de esquí,80,00,0.0
+RFCOL1034,10,Gorra de béisbol,10,00,0.0
+RFCOL1035,5,Par de pesas de gimnasio,20,00,0.0
+RFCOL1036,30,Colchoneta de yoga,15,00,0.0
+RFCOL1037,1,Kit de escalada en roca -,200,00,0.0
+RFCOL1038,3,Mochila de senderismo,50,00,0.0
+RFCOL1039,10,Brújula,10,00,0.0
+RFCOL1040,5,Set de palas de pádel,60,00,0.0
+RFCOL1041,10,Pelota de pádel-5,00,0.0
+RFCOL1042,40,Reloj deportivo,30,00,0.0
+RFCOL1043,10,Botellas de agua (paquete de 6)-8,00,0.0
+RFCOL1044,1,Bastón de senderismo,25,00,0.0
+RFCOL1045,10,Par de espinilleras de fútbol,25,00,0.0
+RFCOL1046,10,Rodilleras de voleibol,20,00,0.0
+RFCOL1047,2,Pala de squash,40,40,0.0
+RFCOL1048,50,Pelota de squash-5,00,0.0
+RFCOL1049,50,Gorro de natación-8,00,0.0
+RFCOL1050,3,Gafas de esquí,40,00,0.0
+RFCOL1051,10,Cuerda de saltar,10,00,0.0
+RFCOL1052,10,Ankle weights,15,00,0.0
+RFCOL1053,2,Tabla de paddle surf -,300,00,0.0
+RFCOL1054,2,Chaleco salvavidas,25,00,0.0
+RFCOL1055,2,Par de aletas de buceo,35,00,0.0
+RFCOL1056,2,Casco de escalada,50,00,0.0
+RFCOL1057,2,Bolsa de raquetas,20,56,0.0
+RFCOL1058,10,Guantes de ciclismo,20,00,0.0
+RFCOL1059,10,Pulsómetro,45,00,0.0
+RFCOL1060,2,Bola medicinal,25,00,0.0
+RFCOL1061,10,Bandas de resistencia,12,00,0.0
+RFCOL1062,1,Chaleco lastrado,40,00,0.0
+RFCOL1063,1,Bolsa de boxeo,50,00,0.0
+RFCOL1064,10,Par de muñequeras,8,80,0.0
+RFCOL1065,30,Pelota de rugby,30,00,0.0
+RFCOL1066,1,Botiquín de primeros auxilios,15,00,0.0
+RFCOL1067,1,Bolsa de gimnasio,25,00,0.0
+RFCOL1068,3,Cinturón de levantamiento de pesas,20,00,0.0
+RFCOL1069,2,Estera de ejercicios,20,00,0.0
+RFCOL1070,10,Gafas de ciclismo,25,00,0.0
+RFCOL1071,1,Malla de escalada -,150,00,0.0
+RFCOL1072,20,Pelota de cricket,15,00,0.0
+RFCOL1073,1,Kit de lanzamiento de discos,50,00,0.0
+RFCOL1074,30,Gafas de sol deportivas,30,00,0.0
+RFCOL1075,1,Saco de boxeo,70,00,0.0
+RFCOL1076,1,Bola de medicina suiza,20,12,0.0
+RFCOL1077,2,Silla de camping,25,00,0.0
+RFCOL1078,3,Tienda de campaña -,100,00,0.0
+RFCOL1079,1,Bolsa de golf,40,00,0.0
+RFCOL1080,3,Raqueta de squash,60,00,0.0
+RFCOL1081,3,Disco de frisbee,10,00,0.0
+RFCOL1082,3,Pelota de cricket,25,00,0.0
+RFCOL1083,0,Set de escalada en hielo -,300,00,0.0
+RFCOL1084,10,Par de mancuernas ajustables,80,00,0.0
+RFCOL1085,2,Botella de agua filtrada,15,00,0.0
+RFCOL1086,0,Pelota de kickboxing,20,00,0.0
+RFCOL1087,1,Pelota de pilates,10,00,0.0
+RFCOL1088,10,Paracaídas de resistencia,25,00,0.0
+RFCOL1089,0,Correa de yoga,12,00,0.0
+RFCOL1090,34,Banda de suspensión,30,00,0.0
+RFCOL1091,1,Guantes de remo,35,00,0.0
+RFCOL1092,10,Casco de patinaje,25,00,0.0
+RFCOL1093,10,Par de gafas de esnórquel,200,00,0.0
+RFCOL1094,2,Cuerda de batalla,20,00,0.0
+RFCOL1095,2,Par de cintas de correr,40,00,0.0
+RFCOL1096,2,Balón medicinal con asas,50,00,0.0
+RFCOL1097,2,Guantes de escalada,35,00,0.0
+RFCOL1098,2,Casco de esquí,38,00,0.0
+RFCOL1099,2,Paddleboard rígido -,102,00,0.0
+RFCOL1100,2,Set de pesca con mosca -,67,00,0.0
+RFCOL1101,2,Colchoneta de yoga extra gruesa,30,00,0.0
+RFCOL1102,2,Máscara de snorkel,98,65,0.0
+RFCOL1103,1,Kit de buceo -,210,00,0.0
+RFCOL1104,2,Rueda abdominal,23,00,0.0
+RFCOL1105,1,Banda de resistencia de látex,10,00,0.0
+RFCOL1106,3,Anillo de pilates,21,00,0.0
+RFCOL1107,2,Saco de dormir ligero,100,00,0.0
+RFCOL1108,3,Rodillo de espuma,7,00,0.0
+RFCOL1109,5,Bastones de senderismo telescópicos,30,00,0.0
+RFCOL1110,1,Par de mancuernas hexagonales,39,00,0.0

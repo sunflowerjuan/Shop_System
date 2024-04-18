@@ -1,5 +1,6 @@
 package co.edu.uptc.model;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,54 @@ public class SystemManager {
 
     public SystemManager() {
         sales = new ArrayList<>();
+    }
+
+    public void addProduct(Product product) throws Exception {
+        if (getProduct(product.getReference()) == -1) {
+            throw new Exception("REFERENCIA DUPLICADA");
+        }
+        products.add(product);
+    }
+
+    public void deleteProduct(String reference) throws Exception {
+        int pos = getProduct(reference);
+        if (pos == -1) {
+            throw new Exception("NO ENCONTRADO");
+        }
+        products.remove(pos);
+    }
+
+    public double calcSalePrice(double price) {
+        double soldPrice = price * 3939.80;
+        return (soldPrice + (soldPrice * 0.25));
+    }
+
+    public Product getMoreExpensive() {
+        Product auxProduc = products.get(0);
+        for (Product product : products) {
+            if (product.getPrice() > auxProduc.getPrice()) {
+                auxProduc = product;
+            }
+        }
+        return auxProduc;
+    }
+
+    public Product getMoreCheap() {
+        Product auxProduc = products.get(0);
+        for (Product product : products) {
+            if (product.getPrice() < auxProduc.getPrice()) {
+                auxProduc = product;
+            }
+        }
+        return auxProduc;
+    }
+
+    public double calcInventoryCost() {
+        double totalCost = 0;
+        for (Product product : products) {
+            totalCost += (product.getPrice() * product.getStock());
+        }
+        return totalCost;
     }
 
     public Product searchProduct(String id) throws Exception {

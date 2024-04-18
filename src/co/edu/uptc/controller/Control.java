@@ -19,13 +19,13 @@ public class Control implements ActionListener {
 
     public Control() {
         system = new SystemManager();
-        fileManager = new FileManager("data/Productos.txt");
+        fileManager = new FileManager("data/Products.txt");
         init();
-        principalPanel = new PrincipalPanel(this);
     }
 
     public void init() {
         loadProducts();
+        costInventory();
     }
 
     public void loadProducts() {
@@ -34,21 +34,31 @@ public class Control implements ActionListener {
             String[] data = fileProduct.split(",");
             Product product = new Product();
             product.setReference(data[0]);
-            product.setName(data[1]);
-            product.setStock(Integer.parseInt(data[2]));
-            product.setPrice(Double.parseDouble(data[3]));
+            product.setStock(Integer.parseInt(data[1]));
+            product.setName(data[2]);
+            double price = Double.parseDouble(data[3]);
+            product.setPrice(price);
+            product.setSalePrice(system.calcSalePrice(price));
             listProducts.add(product);
         }
         system.setProducts(listProducts);
+        principalPanel = new PrincipalPanel(this);
     }
 
     public void uploadProducts() {
         List<Product> listProducts = system.getProducts();
         fileManager.clear();
         for (Product product : listProducts) {
-
             fileManager.writeFile(product.makeToString());
         }
+    }
+
+    public void costInventory() {
+        FileManager costManager = new FileManager("data/ConstInventory.txt");
+        costManager.clear();
+        costManager.writeFile("More Expensive: " + system.getMoreExpensive().makeToString());
+        costManager.writeFile("More Cheap: " + system.getMoreCheap().makeToString());
+        costManager.writeFile("Total Inventary Cost: " + system.calcInventoryCost());
     }
 
     public void refreshInfo() {

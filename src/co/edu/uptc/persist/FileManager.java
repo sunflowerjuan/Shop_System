@@ -18,10 +18,6 @@ public class FileManager {
 	private BufferedWriter bufferedWriter;
 	private BufferedReader bufferedReader;
 
-	public BufferedReader getBufferedReader() {
-		return this.bufferedReader;
-	}
-
 	public FileManager(String nameFile) {
 		file = new File(nameFile);
 	}
@@ -54,6 +50,7 @@ public class FileManager {
 		List<String> lines = new ArrayList<>();
 		String line = "";
 		openFile('r');
+		readLine();
 		while ((line = readLine()) != null) {
 			lines.add(line);
 		}
