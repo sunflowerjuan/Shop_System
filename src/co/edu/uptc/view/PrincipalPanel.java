@@ -1,8 +1,9 @@
 package co.edu.uptc.view;
 
 import javax.swing.*;
+
+import co.edu.uptc.controller.Control;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class PrincipalPanel extends JFrame {
     private FormPanel formPanel;
@@ -12,19 +13,23 @@ public class PrincipalPanel extends JFrame {
     private BillPanel billPanel;
     private ClosePanel closePanel;
 
-    public PrincipalPanel(ActionListener actionListener) {
+    private Control control;
+
+    public PrincipalPanel(Control control) {
+        this.control = control;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        load(actionListener);
+        load();
         pack();
         setResizable(true);
         setVisible(true);
     }
 
-    public void load(ActionListener actionListener) {
+    public void load() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        headerPanel = new HeaderPanel(actionListener);
+        headerPanel = new HeaderPanel();
+        headerPanel.setEvent(control);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -34,17 +39,20 @@ public class PrincipalPanel extends JFrame {
         gbc.weighty = 0.1;
         add(headerPanel, gbc);
 
-        formPanel = new FormPanel(actionListener);
+        formPanel = new FormPanel();
+        formPanel.setEvent(control);
         gbc.gridy = 1;
         gbc.weighty = 0.3;
         add(formPanel, gbc);
 
-        tablePanel = new TablePanel(actionListener);
+        tablePanel = new TablePanel();
+        tablePanel.setEvent(control);
         gbc.gridy = 2;
         gbc.weighty = 0.5;
         add(tablePanel, gbc);
 
-        sellPanel = new SellPanel(actionListener);
+        sellPanel = new SellPanel();
+        sellPanel.setEvent(control);
         gbc.gridy = 3;
         gbc.weighty = 0.1;
         add(sellPanel, gbc);
@@ -109,12 +117,14 @@ public class PrincipalPanel extends JFrame {
         tablePanel.revalidate();
     }
 
-    public void sell(ActionListener actionListener) {
-        billPanel = new BillPanel(actionListener);
+    public void sell() {
+        billPanel = new BillPanel();
+        billPanel.setEvent(control);
     }
 
-    public void close(ActionListener actionListener) {
-        closePanel = new ClosePanel(actionListener);
+    public void close() {
+        closePanel = new ClosePanel();
+        closePanel.setEvent(control);
     }
 
     public BillPanel getBillPanel() {

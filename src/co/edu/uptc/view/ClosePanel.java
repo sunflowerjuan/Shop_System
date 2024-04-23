@@ -2,16 +2,21 @@ package co.edu.uptc.view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import co.edu.uptc.view.interfaces.CustomEvent;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClosePanel extends JPopupMenu {
+public class ClosePanel extends JPopupMenu implements ActionListener {
 
     private DefaultTableModel modelTable;
     private JLabel priceLabel;
     private JTextField payTextField;
+    private CustomEvent event;
 
-    public ClosePanel(ActionListener actionListener) {
+    public ClosePanel() {
         setVisible(false);
 
         JLabel header = new JLabel("CIERRE DE CAJA");
@@ -34,7 +39,7 @@ public class ClosePanel extends JPopupMenu {
         payTextField.setEditable(false);
         // Crear el botón "Cerrar"
         JButton cerrarButton = new JButton("Cerrar");
-        cerrarButton.addActionListener(actionListener);
+        cerrarButton.addActionListener(this);
         cerrarButton.setActionCommand("closeAll");
 
         // Crear el panel principal y agregar componentes
@@ -56,5 +61,18 @@ public class ClosePanel extends JPopupMenu {
 
     public void setpayTextField(String text) {
         payTextField.setText(text);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        event.reciveData(e.getActionCommand());
+    }
+
+    public CustomEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(CustomEvent event) {
+        this.event = event;
     }
 }

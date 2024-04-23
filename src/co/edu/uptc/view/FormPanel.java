@@ -1,18 +1,23 @@
 package co.edu.uptc.view;
 
 import javax.swing.*;
+
+import co.edu.uptc.view.interfaces.CustomEvent;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FormPanel extends JPanel {
+public class FormPanel extends JPanel implements ActionListener {
     private JTextField idSaleField;
     private JTextField idProductField;
     private JTextField descriptionField;
     private JTextField amountField;
     private JTextField priceField;
     private JButton addButton;
+    private CustomEvent event;
 
-    public FormPanel(ActionListener actionListener) {
+    public FormPanel() {
         setLayout(new GridLayout(6, 2));
 
         idSaleField = new JTextField();
@@ -27,7 +32,7 @@ public class FormPanel extends JPanel {
         add(idSaleField);
         add(new JLabel("ID Producto:"));
         idProductField.setActionCommand("refreshInfo");
-        idProductField.addActionListener(actionListener);
+        idProductField.addActionListener(this);
         add(idProductField);
 
         add(new JLabel("Descripción:"));
@@ -38,7 +43,7 @@ public class FormPanel extends JPanel {
         add(priceField);
         add(new JLabel("Cantidad:"));
         add(amountField);
-        addButton.addActionListener(actionListener);
+        addButton.addActionListener(this);
         addButton.setActionCommand("add");
         add(addButton);
 
@@ -73,5 +78,18 @@ public class FormPanel extends JPanel {
 
     public JTextField getAmountField() {
         return amountField;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        event.reciveData(e.getActionCommand());
+    }
+
+    public CustomEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(CustomEvent event) {
+        this.event = event;
     }
 }

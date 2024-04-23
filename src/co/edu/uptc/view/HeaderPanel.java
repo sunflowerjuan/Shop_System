@@ -1,14 +1,19 @@
 package co.edu.uptc.view;
 
 import javax.swing.*;
+
+import co.edu.uptc.view.interfaces.CustomEvent;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HeaderPanel extends JPanel {
+public class HeaderPanel extends JPanel implements ActionListener {
     private JLabel imageShop;
     private JButton exitButton;
+    private CustomEvent event;
 
-    public HeaderPanel(ActionListener actionListener) {
+    public HeaderPanel() {
         setLayout(new GridBagLayout());
         setBackground(new Color(0, 151, 178));
 
@@ -30,8 +35,21 @@ public class HeaderPanel extends JPanel {
 
         exitButton = new JButton("Cerrar Turno");
         exitButton.setActionCommand("exit");
-        exitButton.addActionListener(actionListener);
+        exitButton.addActionListener(this);
         exitButton.setPreferredSize(new Dimension(150, 30));
         add(exitButton, gbc);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        event.reciveData(e.getActionCommand());
+    }
+
+    public CustomEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(CustomEvent event) {
+        this.event = event;
     }
 }

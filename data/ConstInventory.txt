@@ -1,3 +1,3 @@
-More Expensive: RFCOL1018,Bicicleta de montaña,2,300.0,1477425.0
-More Cheap: RFCOL1041,Pelota de pádel-5,10,0.0,0.0
+More Expensive: RFCOL1018,2,Bicicleta de montaña,300.0,1477425.0
+More Cheap: RFCOL1041,10,Pelota de pádel-5,0.0,0.0
 Total Inventary Cost: 25294.0

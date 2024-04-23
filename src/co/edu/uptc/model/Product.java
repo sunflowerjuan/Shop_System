@@ -25,7 +25,7 @@ public class Product {
     }
 
     public String makeToString() {
-        return reference + "," + name + "," + stock + "," + price + "," + salePrice;
+        return reference + "," + stock + "," + name + "," + price + "," + salePrice;
     }
 
     public String getReference() {

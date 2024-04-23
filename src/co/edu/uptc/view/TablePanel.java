@@ -2,15 +2,20 @@ package co.edu.uptc.view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import co.edu.uptc.view.interfaces.CustomEvent;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TablePanel extends JPanel {
+public class TablePanel extends JPanel implements ActionListener {
     private JTable table;
     private JButton deleteButton;
     private DefaultTableModel modelTable;
+    private CustomEvent event;
 
-    public TablePanel(ActionListener actionListener) {
+    public TablePanel() {
         setLayout(new BorderLayout());
 
         modelTable = new DefaultTableModel();
@@ -25,7 +30,7 @@ public class TablePanel extends JPanel {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         deleteButton = new JButton("Eliminar");
-        deleteButton.addActionListener(actionListener);
+        deleteButton.addActionListener(this);
         deleteButton.setActionCommand("delete");
         deleteButton.setPreferredSize(new Dimension(100, 30));
         buttonPanel.add(deleteButton);
@@ -58,4 +63,18 @@ public class TablePanel extends JPanel {
         revalidate();
         repaint();
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        event.reciveData(e.getActionCommand());
+    }
+
+    public CustomEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(CustomEvent event) {
+        this.event = event;
+    }
+
 }

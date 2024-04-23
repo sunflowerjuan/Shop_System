@@ -11,11 +11,14 @@ import co.edu.uptc.model.Sale;
 import co.edu.uptc.model.SystemManager;
 import co.edu.uptc.persist.FileManager;
 import co.edu.uptc.view.PrincipalPanel;
+import co.edu.uptc.view.interfaces.CustomEvent;
+import co.edu.uptc.view.interfaces.CustomEventResponse;
 
-public class Control implements ActionListener {
+public class Control implements CustomEvent {
     private SystemManager system;
     private FileManager fileManager;
     private PrincipalPanel principalPanel;
+    private CustomEventResponse responser;
 
     public Control() {
         system = new SystemManager();
@@ -48,6 +51,8 @@ public class Control implements ActionListener {
     public void uploadProducts() {
         List<Product> listProducts = system.getProducts();
         fileManager.clear();
+        fileManager.writeFile(
+                "Referencia,Cantidad,Nombre,Precio de Costo en Dolares,Precio de venta en Pesos colombianos");
         for (Product product : listProducts) {
             fileManager.writeFile(product.makeToString());
         }
@@ -120,39 +125,8 @@ public class Control implements ActionListener {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String source = e.getActionCommand();
-        switch (source) {
-            case "refreshInfo":
-                refreshInfo();
-                break;
-            case "add":
-                add();
-                break;
-            case "sell":
-                sell();
-                break;
-            case "delete":
-                delete();
-                break;
-            case "closeBill":
-                closeBill();
-                break;
-            case "exit":
-                closeAll();
-                break;
-            case "closeAll":
-                principalPanel.closeAll();
-                principalPanel.getClosePanel().setVisible(false);
-                uploadProducts();
-                break;
-
-        }
-    }
-
     private void closeAll() {
-        principalPanel.close(this);
+        principalPanel.close();
         double plus = 0;
         for (Sale sale : system.getSales()) {
             Object[] row = new Object[2];
@@ -207,7 +181,7 @@ public class Control implements ActionListener {
             }
         } else {
             Sale sale = system.getSales().get(index);
-            principalPanel.sell(this);
+            principalPanel.sell();
             for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
                 Object[] row = new Object[5];
                 row[0] = entry.getKey().getReference();
@@ -232,6 +206,37 @@ public class Control implements ActionListener {
         principalPanel.setPrice("");
         principalPanel.setAmount("");
         principalPanel.clean();
+    }
+
+    @Override
+    public void reciveData(String eventData) {
+        String source = eventData;
+        switch (source) {
+            case "refreshInfo":
+                refreshInfo();
+                break;
+            case "add":
+                add();
+                break;
+            case "sell":
+                sell();
+                break;
+            case "delete":
+                delete();
+                break;
+            case "closeBill":
+                closeBill();
+                break;
+            case "exit":
+                closeAll();
+                break;
+            case "closeAll":
+                principalPanel.closeAll();
+                principalPanel.getClosePanel().setVisible(false);
+                uploadProducts();
+                break;
+
+        }
     }
 
 }
