@@ -18,7 +18,7 @@ public class SystemManager {
     }
 
     public void addProduct(Product product) throws Exception {
-        if (getProduct(product.getReference()) == -1) {
+        if (getProduct(product.getReference()) != -1) {
             throw new Exception("REFERENCIA DUPLICADA");
         }
         products.add(product);
@@ -114,9 +114,5 @@ public class SystemManager {
 
     public List<Sale> getSales() {
         return sales;
-    }
-
-    public void setSales(List<Sale> sales) {
-        this.sales = sales;
     }
 }

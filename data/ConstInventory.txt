@@ -1,3 +1,3 @@
-More Expensive: RFCOL1018,Bicicleta de montaña,2,300.0,1477425.0
+More Expensive: RF99,Juanito,1,1000.0,4924750.0
 More Cheap: RFCOL1041,Pelota de pádel-5,10,0.0,0.0
-Total Inventary Cost: 25294.0
+Total Inventary Cost: 26019.0

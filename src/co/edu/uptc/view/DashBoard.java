@@ -4,15 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class PrincipalPanel extends JFrame {
+public class DashBoard extends JFrame {
     private FormPanel formPanel;
     private TablePanel tablePanel;
     private SellPanel sellPanel;
     private HeaderPanel headerPanel;
     private BillPanel billPanel;
     private ClosePanel closePanel;
+    private AddButtonPanel addButtonPanel;
+    private AddProductDialog addProductDialog;
 
-    public PrincipalPanel(ActionListener actionListener) {
+    public DashBoard(ActionListener actionListener) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         load(actionListener);
         pack();
@@ -23,6 +25,7 @@ public class PrincipalPanel extends JFrame {
     public void load(ActionListener actionListener) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+        addProductDialog = new AddProductDialog(this,actionListener);
 
         headerPanel = new HeaderPanel(actionListener);
         gbc.gridx = 0;
@@ -34,22 +37,27 @@ public class PrincipalPanel extends JFrame {
         gbc.weighty = 0.1;
         add(headerPanel, gbc);
 
-        formPanel = new FormPanel(actionListener);
+        addButtonPanel = new AddButtonPanel(actionListener);
         gbc.gridy = 1;
-        gbc.weighty = 0.3;
+        gbc.weighty = 0.1;
+        add(addButtonPanel, gbc);
+
+        formPanel = new FormPanel(actionListener);
+        gbc.gridy = 2;
+        gbc.weighty = 0.5;
         add(formPanel, gbc);
 
         tablePanel = new TablePanel(actionListener);
-        gbc.gridy = 2;
-        gbc.weighty = 0.5;
+        gbc.gridy = 3;
+        gbc.weighty = 0.1;
         add(tablePanel, gbc);
 
         sellPanel = new SellPanel(actionListener);
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.weighty = 0.1;
         add(sellPanel, gbc);
-
     }
+
 
     public void addRow(Object[] row) {
         tablePanel.addRRow(row);
@@ -121,19 +129,33 @@ public class PrincipalPanel extends JFrame {
         return billPanel;
     }
 
-    public void setBillPanel(BillPanel billPanel) {
-        this.billPanel = billPanel;
-    }
 
     public ClosePanel getClosePanel() {
         return closePanel;
     }
 
-    public void setClosePanel(ClosePanel closePanel) {
-        this.closePanel = closePanel;
-    }
 
     public void closeAll() {
         dispose();
+    }
+
+    public AddProductDialog getAddProductDialog() {
+        return addProductDialog;
+    }
+
+    public String getNewReference() {
+        return addProductDialog.getReference();
+    }
+
+    public String getNewName() {
+        return addProductDialog.getProductName();
+    }
+
+    public String getNewAmount(){
+        return addProductDialog.getAmount();
+    }
+
+    public String getNewPrice(){
+        return addProductDialog.getProductPrice();
     }
 }

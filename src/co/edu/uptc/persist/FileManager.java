@@ -95,15 +95,4 @@ public class FileManager {
 		}
 	}
 
-	public boolean exist() {
-		return file.exists();
-	}
-
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
-	}
 }

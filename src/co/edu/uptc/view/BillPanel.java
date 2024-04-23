@@ -17,6 +17,7 @@ public class BillPanel extends JPopupMenu {
         JLabel header = new JLabel("FACTURA");
         header.setBackground(Color.magenta);
         add(header);
+
         // Crear la tabla
         modelTable = new DefaultTableModel();
         modelTable.addColumn("ID Producto");

@@ -10,12 +10,12 @@ import co.edu.uptc.model.Product;
 import co.edu.uptc.model.Sale;
 import co.edu.uptc.model.SystemManager;
 import co.edu.uptc.persist.FileManager;
-import co.edu.uptc.view.PrincipalPanel;
+import co.edu.uptc.view.DashBoard;
 
 public class Control implements ActionListener {
     private SystemManager system;
     private FileManager fileManager;
-    private PrincipalPanel principalPanel;
+    private DashBoard dashBoard;
 
     public Control() {
         system = new SystemManager();
@@ -28,21 +28,35 @@ public class Control implements ActionListener {
         costInventory();
     }
 
+    public void addNewProduct() {
+        String reference = dashBoard.getNewReference();
+        String name = dashBoard.getNewName();
+        Double price = Double.valueOf(dashBoard.getNewPrice());
+        int amount = Integer.parseInt(dashBoard.getNewAmount());
+        Double priceSold = system.calcSalePrice(price);
+        Product newProduct = new Product(reference,amount, name, price, priceSold);
+        try {
+            system.addProduct(newProduct);
+        } catch (Exception e) {
+            dashBoard.showErrorMessage(e.getMessage());
+        }
+    }
+
     public void loadProducts() {
         List<Product> listProducts = new ArrayList<>();
         for (String fileProduct : fileManager.readFile()) {
             String[] data = fileProduct.split(",");
             Product product = new Product();
             product.setReference(data[0]);
-            product.setStock(Integer.parseInt(data[1]));
-            product.setName(data[2]);
+            product.setName(data[1]);
+            product.setStock(Integer.parseInt(data[2]));
             double price = Double.parseDouble(data[3]);
             product.setPrice(price);
             product.setSalePrice(system.calcSalePrice(price));
             listProducts.add(product);
         }
         system.setProducts(listProducts);
-        principalPanel = new PrincipalPanel(this);
+        dashBoard = new DashBoard(this);
     }
 
     public void uploadProducts() {
@@ -63,59 +77,59 @@ public class Control implements ActionListener {
 
     public void refreshInfo() {
         try {
-            Product product = system.searchProduct(principalPanel.getIdProduct());
-            principalPanel.setDescription(product.getName());
-            principalPanel.setPrice(String.valueOf(product.getPrice()));
-            if (principalPanel.getSaleId().equals("")) {
-                principalPanel.setSaleId(system.generateIds());
+            Product product = system.searchProduct(dashBoard.getIdProduct());
+            dashBoard.setDescription(product.getName());
+            dashBoard.setPrice(String.valueOf(product.getSalePrice()));
+            if (dashBoard.getSaleId().equals("")) {
+                dashBoard.setSaleId(system.generateIds());
             }
 
         } catch (Exception e) {
-            principalPanel.showErrorMessage(e.getMessage());
-            principalPanel.setIdProduct("");
-            principalPanel.setDescription("");
-            principalPanel.setPrice("");
-            principalPanel.setAmount("");
+            dashBoard.showErrorMessage(e.getMessage());
+            dashBoard.setIdProduct("");
+            dashBoard.setDescription("");
+            dashBoard.setPrice("");
+            dashBoard.setAmount("");
         }
     }
 
     public void add() {
         try {
-            Product product = system.searchProduct(principalPanel.getIdProduct());
-            principalPanel.verify();
-            product.verifyStock(principalPanel.getAmount());
+            Product product = system.searchProduct(dashBoard.getIdProduct());
+            dashBoard.verify();
+            product.verifyStock(dashBoard.getAmount());
             Object[] row = new Object[5];
             row[0] = product.getReference();
             row[1] = product.getName();
-            if (principalPanel.getAmount() <= 0) {
-                principalPanel.setAmount("");
+            if (dashBoard.getAmount() <= 0) {
+                dashBoard.setAmount("");
                 throw new Exception("CANTIDAD INVALIDA");
             }
-            row[2] = principalPanel.getAmount();
-            row[3] = product.getPrice();
-            double price = principalPanel.getAmount() * product.getPrice();
+            row[2] = dashBoard.getAmount();
+            row[3] = product.getSalePrice();
+            double price = dashBoard.getAmount() * product.getSalePrice();
             row[4] = price;
-            principalPanel.addRow(row);
+            dashBoard.addRow(row);
             int index = system.getProduct(product.getReference());
             system.getProducts().get(index)
-                    .setStock(system.getProducts().get(index).getStock() - principalPanel.getAmount());
+                    .setStock(system.getProducts().get(index).getStock() - dashBoard.getAmount());
 
-            index = system.getSale(principalPanel.getSaleId());
+            index = system.getSale(dashBoard.getSaleId());
             if (index == -1) {
                 Sale sale = new Sale();
-                sale.setId(principalPanel.getSaleId());
-                sale.addProduct(product, principalPanel.getAmount());
+                sale.setId(dashBoard.getSaleId());
+                sale.addProduct(product, dashBoard.getAmount());
                 system.sellProducts(sale);
-                principalPanel.setTotalField(sale.getPrice() + "");
+                dashBoard.setTotalField(sale.getPrice() + "");
             } else {
                 Sale sale = system.getSales().get(index);
-                sale.addProduct(product, principalPanel.getAmount());
+                sale.addProduct(product, dashBoard.getAmount());
                 system.getSales().set(index, sale);
-                principalPanel.setTotalField(sale.getPrice() + "");
+                dashBoard.setTotalField(sale.getPrice() + "");
             }
 
         } catch (Exception e) {
-            principalPanel.showErrorMessage(e.getMessage());
+            dashBoard.showErrorMessage(e.getMessage());
         }
 
     }
@@ -143,50 +157,56 @@ public class Control implements ActionListener {
                 closeAll();
                 break;
             case "closeAll":
-                principalPanel.closeAll();
-                principalPanel.getClosePanel().setVisible(false);
+                dashBoard.closeAll();
+                dashBoard.getClosePanel().setVisible(false);
                 uploadProducts();
                 break;
-
+            case "addProductPanel":
+                dashBoard.getAddProductDialog().setVisible(true);
+                break;
+            case "addProduct":
+                    addNewProduct();
+                    dashBoard.getAddProductDialog().clean();
+                break;
         }
     }
 
     private void closeAll() {
-        principalPanel.close(this);
+        dashBoard.close(this);
         double plus = 0;
         for (Sale sale : system.getSales()) {
             Object[] row = new Object[2];
             row[0] = sale.getId();
             row[1] = sale.getPrice();
             plus += sale.getPrice();
-            principalPanel.getClosePanel().addRRow(row);
+            dashBoard.getClosePanel().addRRow(row);
         }
-        principalPanel.getClosePanel().setpayTextField(plus + "");
-        principalPanel.getClosePanel().setVisible(true);
+        dashBoard.getClosePanel().setpayTextField(plus + "");
+        dashBoard.getClosePanel().setVisible(true);
     }
 
     private void delete() {
-        Object[] data = principalPanel.tableDelete();
+        Object[] data = dashBoard.tableDelete();
         if (data[0] == null) {
             try {
                 throw new Exception("SELECCIONE EL OBJETO PRIMERO");
             } catch (Exception e) {
-                principalPanel.showErrorMessage(e.getMessage());
+                dashBoard.showErrorMessage(e.getMessage());
             }
         } else {
             Product product = new Product();
             product.setReference((String) data[0]);
             product.setName((String) data[1]);
             product.setStock((Integer) data[2]);
-            int pos = system.getSale(principalPanel.getSaleId());
+            int pos = system.getSale(dashBoard.getSaleId());
             try {
                 system.getSales().get(pos).deleteProduct(product.getReference());
                 double price = (Double) data[4] - (system.getSales().get(pos).getPrice());
                 system.getSales().get(pos).setPrice(price);
-                principalPanel.setTotalField(system.getSales().get(pos).getPrice() + "");
+                dashBoard.setTotalField(system.getSales().get(pos).getPrice() + "");
                 pos = system.getProduct(product.getReference());
-                int stok = system.getProducts().get(pos).getStock() + product.getStock();
-                system.getProducts().get(pos).setStock(stok);
+                int stock = system.getProducts().get(pos).getStock() + product.getStock();
+                system.getProducts().get(pos).setStock(stock);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -198,40 +218,40 @@ public class Control implements ActionListener {
     }
 
     private void sell() {
-        int index = system.getSale(principalPanel.getSaleId());
+        int index = system.getSale(dashBoard.getSaleId());
         if (index == -1) {
             try {
                 throw new Exception("AGREGUE PRODUCTOS AL CARRITO");
             } catch (Exception e) {
-                principalPanel.showErrorMessage(e.getMessage());
+                dashBoard.showErrorMessage(e.getMessage());
             }
         } else {
             Sale sale = system.getSales().get(index);
-            principalPanel.sell(this);
+            dashBoard.sell(this);
             for (Map.Entry<Product, Integer> entry : sale.getProducts().entrySet()) {
                 Object[] row = new Object[5];
                 row[0] = entry.getKey().getReference();
                 row[1] = entry.getKey().getName();
                 row[2] = entry.getValue();
                 row[3] = entry.getKey().getPrice();
-                double price = principalPanel.getAmount() * entry.getKey().getPrice();
+                double price = dashBoard.getAmount() * entry.getKey().getPrice();
                 row[4] = price;
-                principalPanel.getBillPanel().addRRow(row);
+                dashBoard.getBillPanel().addRRow(row);
             }
-            principalPanel.getBillPanel().setpayTextField(sale.getPrice() + "");
-            principalPanel.getBillPanel().setVisible(true);
+            dashBoard.getBillPanel().setpayTextField(sale.getPrice() + "");
+            dashBoard.getBillPanel().setVisible(true);
         }
 
     }
 
     public void closeBill() {
-        principalPanel.getBillPanel().setVisible(false);
-        principalPanel.setSaleId("");
-        principalPanel.setIdProduct("");
-        principalPanel.setDescription("");
-        principalPanel.setPrice("");
-        principalPanel.setAmount("");
-        principalPanel.clean();
+        dashBoard.getBillPanel().setVisible(false);
+        dashBoard.setSaleId("");
+        dashBoard.setIdProduct("");
+        dashBoard.setDescription("");
+        dashBoard.setPrice("");
+        dashBoard.setAmount("");
+        dashBoard.clean();
     }
 
 }
